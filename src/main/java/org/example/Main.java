@@ -7,7 +7,7 @@ public class Main {
 
         ClientDatabaseService clientDatabaseService = new ClientDatabaseService();
         Client client1 = new Client(1111, "Stas23", "Aristov23", "Viktorovich23");
-
+        clientDatabaseService.update(1111, client1);
 
 
     }

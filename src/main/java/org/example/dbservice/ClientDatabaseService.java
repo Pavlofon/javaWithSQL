@@ -48,6 +48,7 @@ public class ClientDatabaseService implements DatabaseService<Client> {
                         resultSet.getString("Second_Name"),
                         resultSet.getString("Last_Name"));
                 connection.close();
+                System.out.println("Clients with id = " + id +" readed");
                 return client;
 
             }
@@ -61,8 +62,24 @@ public class ClientDatabaseService implements DatabaseService<Client> {
     }
 
     @Override
-    public Client update(int id, Client client) {
-        return null;
+    public boolean update(int id, Client client) {
+        try {
+            try (Connection connection = getConnection.createConnection()) {
+
+                Statement statement = connection.createStatement();
+                int rows = statement.executeUpdate(
+                        "UPDATE Clients SET " +"First_Name = "+ "'" + client.getFirstName() + "'" + ","+"Second_Name = " + "'" + client.getSecondName() + "'"
+                                + ","+ "Last_Name = "+ "'" + client.getLastName() + "'" + " WHERE ID = " + id);
+                System.out.println("Clients with id = " + id +" updated");
+                return true;
+            }
+
+        } catch (Exception ex) {
+            System.out.println("Connection failed...");
+
+            System.out.println(ex);
+            return false;
+        }
     }
 
     @Override
